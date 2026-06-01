@@ -1,0 +1,643 @@
+@import url(../../../stylesheets/application.css); /* Redmine 6 base — load-bearing, must stay first */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ============================================================
+   Engineering Ledger — a theme for Redmine 6
+   Refined technical-editorial. Ink chrome · warm paper ·
+   petrol/rust accents · IBM Plex Sans + Mono.
+
+   Install dir: app/assets/themes/engineering-ledger/
+   Body class:  body.theme-Engineering-ledger
+   Repo:        https://github.com/io7/redmine-engineering-ledger
+   License:     MIT
+   ============================================================ */
+
+:root {
+  --ink:        #1b1e24;
+  --ink-soft:   #23272f;
+  --ink-line:   #353b45;
+  --ink-text:   #c9ccd2;
+
+  --paper:      #f4f1ea;
+  --paper-2:    #efeae0;
+  --card:       #ffffff;
+
+  --line:       #e7e1d6;
+  --line-2:     #d8d1c3;
+
+  --text:       #23262c;
+  --text-2:     #4a4e56;
+  --muted:      #797d85;
+  --faint:      #a7a294;
+
+  --accent:     #15727d;  /* petrol — interaction */
+  --accent-d:   #0d5a63;
+  --accent-tint:#e7f0f0;
+
+  --warm:       #c2581f;  /* rust — identity / emphasis */
+  --warm-d:     #9f4417;
+  --warm-tint:  #f8ebe1;
+
+  --ok:         #3f7d46;
+  --ok-tint:    #e9f1e8;
+  --danger:     #b23b2e;
+  --danger-tint:#f7e7e4;
+
+  --radius:     5px;
+  --shadow-sm:  0 1px 2px rgba(22,24,28,.06);
+  --shadow-md:  0 6px 22px -10px rgba(22,24,28,.22);
+
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ---------- canvas & typography ---------- */
+body.theme-Engineering-ledger,
+body.theme-Engineering-ledger #wrapper {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--paper);
+  /* faint paper tone, no grain png */
+  background-image:
+    radial-gradient(120% 80% at 100% 0%, rgba(194,88,31,.035), transparent 55%),
+    radial-gradient(100% 70% at 0% 0%, rgba(21,114,125,.04), transparent 50%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.theme-Engineering-ledger #main { background: transparent; margin: 0; }
+
+body.theme-Engineering-ledger h1, body.theme-Engineering-ledger h2, body.theme-Engineering-ledger h3,
+body.theme-Engineering-ledger h4, body.theme-Engineering-ledger h5 {
+  font-family: var(--sans);
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -.012em;
+}
+
+body.theme-Engineering-ledger a,
+body.theme-Engineering-ledger a:link,
+body.theme-Engineering-ledger a:visited { color: var(--accent); text-decoration: none; }
+body.theme-Engineering-ledger a:hover { color: var(--accent-d); text-decoration: underline; text-underline-offset: 2px; }
+
+/* monospace for the data Redmine is full of */
+body.theme-Engineering-ledger .icon-time-add, body.theme-Engineering-ledger a.issue,
+body.theme-Engineering-ledger .issue-id, body.theme-Engineering-ledger .changeset-id,
+body.theme-Engineering-ledger td.id, body.theme-Engineering-ledger td.id a,
+body.theme-Engineering-ledger td.done_ratio, body.theme-Engineering-ledger td.estimated_hours,
+body.theme-Engineering-ledger td.spent_hours, body.theme-Engineering-ledger td.created_on,
+body.theme-Engineering-ledger td.updated_on, body.theme-Engineering-ledger td.start_date,
+body.theme-Engineering-ledger td.due_date, body.theme-Engineering-ledger .journal h4 a,
+body.theme-Engineering-ledger code, body.theme-Engineering-ledger pre, body.theme-Engineering-ledger tt {
+  font-family: var(--mono);
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---------- top account bar ---------- */
+body.theme-Engineering-ledger #top-menu {
+  background: #14161b;
+  border-bottom: 1px solid #0c0d11;
+  padding: 6px 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+body.theme-Engineering-ledger #top-menu a,
+body.theme-Engineering-ledger #top-menu a:link,
+body.theme-Engineering-ledger #top-menu a:visited { color: #9aa0aa; }
+body.theme-Engineering-ledger #top-menu a:hover { color: #fff; text-decoration: none; }
+body.theme-Engineering-ledger #top-menu #loggedas { color: #6f747e; }
+
+/* ---------- header / wordmark ---------- */
+body.theme-Engineering-ledger #header {
+  background: var(--ink);
+  background-image: linear-gradient(180deg, #21252d, var(--ink));
+  border-bottom: 1px solid #0e1014;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.03);
+  min-height: auto;
+  padding: 18px 20px 16px 22px;
+  position: relative;
+}
+body.theme-Engineering-ledger #header::after {  /* rust hairline signature */
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--warm) 0 64px, transparent 64px);
+  opacity: .9;
+}
+body.theme-Engineering-ledger #header h1 {
+  background: none !important;
+  padding: 0 0 0 26px;
+  margin: 0;
+  color: #f4f2ee;
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -.02em;
+  text-shadow: none;
+  position: relative;
+}
+body.theme-Engineering-ledger #header h1::before { /* the io7 mark */
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 15px; height: 15px; transform: translateY(-50%) rotate(45deg);
+  background: var(--warm);
+  box-shadow: inset 0 0 0 3px var(--ink), 0 0 0 1px var(--warm-d);
+  border-radius: 2px;
+}
+body.theme-Engineering-ledger #header h1 a { color: inherit; }
+
+/* quick search in the header.
+   Redmine's responsive.css pins #quick-search to position:absolute; top:84px
+   relative to #content-wrapper — a fixed offset tuned for the stock header.
+   This themed header is a different height, so that offset lands inside/under
+   the header & menu bar on app-menu pages (hidden everywhere except My page).
+   Re-anchor it to the top of the header — DESKTOP ONLY. Below 900px Redmine's
+   native responsive layout moves search into the flyout (hamburger) menu, so we
+   must NOT reposition it there or it becomes a 0×0 ghost in the corner. */
+@media screen and (min-width: 900px) {
+  body.theme-Engineering-ledger #quick-search {
+    position: absolute;
+    top: 28px !important;
+    right: 22px !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0;
+    z-index: 30;
+  }
+}
+body.theme-Engineering-ledger #quick-search input[type="text"],
+body.theme-Engineering-ledger #quick-search #q {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  color: #eceef1;
+  padding: 5px 12px !important;
+  box-shadow: none;
+}
+body.theme-Engineering-ledger #quick-search input::placeholder { color: #8a909a; }
+body.theme-Engineering-ledger #quick-search a,
+body.theme-Engineering-ledger #quick-search label { color: #aeb3bc; }
+
+/* ---------- main menu (editorial tabs) ---------- */
+body.theme-Engineering-ledger #main-menu {
+  background: var(--ink-soft);
+  height: auto;
+  left: 0; width: 100%;
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+body.theme-Engineering-ledger #main-menu ul { margin: 0; padding: 0 14px; }
+body.theme-Engineering-ledger #main-menu li a,
+body.theme-Engineering-ledger #main-menu li a:link,
+body.theme-Engineering-ledger #main-menu li a:visited {
+  background: transparent !important;
+  color: #b9bec7 !important;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: .005em;
+  padding: 11px 14px 10px !important;
+  margin: 0;
+  border: 0; border-radius: 0;
+  box-shadow: none; text-shadow: none;
+  border-bottom: 2px solid transparent;
+  transition: color .14s ease, border-color .14s ease, background .14s ease;
+}
+body.theme-Engineering-ledger #main-menu li a:hover {
+  background: rgba(255,255,255,.04) !important;
+  color: #fff !important;
+  text-decoration: none;
+  border-bottom-color: rgba(194,88,31,.5);
+}
+body.theme-Engineering-ledger #main-menu li a.selected,
+body.theme-Engineering-ledger #main-menu li a.selected:hover {
+  background: transparent !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--warm);
+}
+
+/* ---------- content card & sidebar ---------- */
+body.theme-Engineering-ledger #content,
+body.theme-Engineering-ledger #main.nosidebar #content {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 22px 24px;
+  margin: 16px 16px 0;
+  animation: io7-rise .26s cubic-bezier(.2,.7,.3,1) both;
+}
+@keyframes io7-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+body.theme-Engineering-ledger #sidebar {
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 4px 6px 24px 22px !important;
+  width: 252px !important;
+  margin-top: 16px;
+  font-size: 12px;
+}
+body.theme-Engineering-ledger #sidebar h3 {
+  color: var(--ink);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-weight: 600;
+  margin: 18px 0 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line);
+}
+body.theme-Engineering-ledger #sidebar a.selected { background: var(--accent-tint); color: var(--accent-d); font-weight: 600; border-radius: 3px; }
+
+/* ---------- headings inside content ---------- */
+body.theme-Engineering-ledger #content h2,
+body.theme-Engineering-ledger #content > h2,
+body.theme-Engineering-ledger .controller-projects.action-index #content h2 {
+  background: none !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+  text-shadow: none !important;
+  letter-spacing: -.015em !important;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0 0 12px 14px !important;
+  margin: 0 0 18px !important;
+  position: relative;
+}
+body.theme-Engineering-ledger #content h2::before {
+  content: ""; position: absolute; left: 0; top: 3px; bottom: 13px; width: 4px;
+  background: var(--warm); border-radius: 2px;
+}
+body.theme-Engineering-ledger #content h3 { font-size: 15px; margin: 20px 0 8px; }
+/* the issue header subject sits next to a top-aligned avatar — don't let the
+   generic #content h3 margin push it down out of alignment with the gravatar */
+/* #content h3 carries an ID so it beats plain .subject h3 — must include #content here */
+body.theme-Engineering-ledger #content .subject h3 { margin: 0; padding: 2px 0 0; line-height: 1.3; }
+body.theme-Engineering-ledger .gravatar-with-child, body.theme-Engineering-ledger .avatar-with-child { margin-top: 1px; }
+body.theme-Engineering-ledger p.subtitle { color: var(--muted); margin: -10px 0 16px 14px; font-size: 12px; }
+
+body.theme-Engineering-ledger p.breadcrumb {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  letter-spacing: -.01em;
+}
+body.theme-Engineering-ledger .contextual a, body.theme-Engineering-ledger .contextual a:link { color: var(--muted); }
+body.theme-Engineering-ledger .contextual a:hover { color: var(--accent-d); }
+
+/* ---------- tables (the workhorse) ---------- */
+body.theme-Engineering-ledger table.list { border: 1px solid var(--line); border-radius: var(--radius); border-collapse: separate; border-spacing: 0; overflow: hidden; }
+body.theme-Engineering-ledger table.list thead th {
+  background: #f0ece3;
+  border: 0; border-bottom: 1px solid var(--line-2);
+  color: var(--text-2);
+  font-family: var(--sans);
+  font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .045em;
+  text-shadow: none;
+  padding: 9px 10px;
+}
+body.theme-Engineering-ledger table.list thead th a, body.theme-Engineering-ledger table.list thead th a:link { color: var(--text-2); }
+body.theme-Engineering-ledger table.list tbody td { border: 0; border-bottom: 1px solid var(--line); padding: 7px 10px; }
+body.theme-Engineering-ledger table.list tbody tr { background: var(--card); }
+body.theme-Engineering-ledger table.list tbody tr.odd { background: #faf8f3; }
+body.theme-Engineering-ledger table.list tbody tr:hover,
+body.theme-Engineering-ledger table.list tbody tr:hover td { background: var(--accent-tint); }
+body.theme-Engineering-ledger table.list tbody tr.issue a { color: var(--accent); }
+body.theme-Engineering-ledger tr.issue.closed a, body.theme-Engineering-ledger .closed { text-decoration: line-through; color: var(--muted); }
+
+/* priority emphasis — recolored to the system */
+body.theme-Engineering-ledger tr.priority-7, body.theme-Engineering-ledger tr.priority-5,
+body.theme-Engineering-ledger tr.priority-7.odd, body.theme-Engineering-ledger tr.priority-5.odd { background: var(--warm-tint) !important; }
+body.theme-Engineering-ledger tr.priority-7 td, body.theme-Engineering-ledger tr.priority-5 td { border-bottom-color: #efd5c4 !important; }
+body.theme-Engineering-ledger tr.priority-7 a, body.theme-Engineering-ledger tr.priority-7 td, body.theme-Engineering-ledger tr.priority-5 a { color: var(--warm-d) !important; }
+body.theme-Engineering-ledger tr.priority-3, body.theme-Engineering-ledger tr.priority-3.odd { background: var(--accent-tint) !important; }
+body.theme-Engineering-ledger tr.priority-1 { color: var(--muted); }
+
+/* ---------- boxes / fieldsets ---------- */
+body.theme-Engineering-ledger .box,
+body.theme-Engineering-ledger fieldset.box {
+  background: #fbfaf6;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: none;
+  padding: 16px 18px;
+}
+body.theme-Engineering-ledger fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 16px 14px; }
+body.theme-Engineering-ledger legend { color: var(--ink); font-weight: 600; padding: 0 6px; }
+
+/* ---------- issue detail ---------- */
+body.theme-Engineering-ledger .issue { border-radius: var(--radius); }
+body.theme-Engineering-ledger .issue.details {
+  background: #fbfaf6 !important;
+  border: 1px solid var(--line) !important;
+  border-left: 3px solid var(--warm) !important;
+  border-radius: var(--radius);
+  padding: 18px 20px !important;
+  margin: 0 0 18px !important;
+}
+body.theme-Engineering-ledger .issue .subject h3 { font-size: 17px; }
+body.theme-Engineering-ledger .issue .attributes .attribute .label { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+body.theme-Engineering-ledger .issue .attributes .attribute .value { color: var(--text); }
+body.theme-Engineering-ledger span.badge, body.theme-Engineering-ledger .badge {
+  background: var(--accent-tint); color: var(--accent-d);
+  border: 1px solid #cfe2e2; border-radius: 999px;
+  padding: 1px 9px; font-family: var(--mono); font-size: 11px; font-weight: 500;
+}
+
+/* history / journals as a clean timeline */
+body.theme-Engineering-ledger #history { margin-top: 12px; }
+body.theme-Engineering-ledger #history div.journal,
+body.theme-Engineering-ledger div.journal {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 12px 16px;
+  margin: 0 0 10px;
+}
+body.theme-Engineering-ledger div.journal:hover { border-color: var(--line-2); box-shadow: var(--shadow-sm); }
+body.theme-Engineering-ledger div.journal .details, body.theme-Engineering-ledger div.journal .details:hover {
+  background: transparent !important; border: 0 !important;
+  color: var(--muted); font-size: 12px;
+}
+body.theme-Engineering-ledger .journal h4 { border-bottom: 1px solid var(--line); padding-bottom: 6px; color: var(--muted); font-weight: 500; }
+
+/* progress bars */
+body.theme-Engineering-ledger table.progress { border: 1px solid var(--line-2); border-radius: 3px; height: 1em; }
+body.theme-Engineering-ledger table.progress td.closed { background: var(--accent); }
+body.theme-Engineering-ledger table.progress td.done { background: #8fc0c6; }
+body.theme-Engineering-ledger table.progress td.todo { background: #efeae0; }
+
+/* ---------- forms & fields ---------- */
+body.theme-Engineering-ledger input[type="text"], body.theme-Engineering-ledger input[type="password"],
+body.theme-Engineering-ledger input[type="email"], body.theme-Engineering-ledger input[type="number"],
+body.theme-Engineering-ledger textarea, body.theme-Engineering-ledger select {
+  background: #fff;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  padding: 6px 9px;
+  height: auto;
+  color: var(--text);
+  font-family: var(--sans); font-size: 13px;
+  box-shadow: inset 0 1px 1px rgba(20,22,26,.03);
+  transition: border-color .14s ease, box-shadow .14s ease;
+}
+/* native chevron is removed by appearance:none — draw our own petrol caret */
+body.theme-Engineering-ledger select {
+  appearance: none; -webkit-appearance: none; -moz-appearance: none;
+  padding-right: 30px; height: 32px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%2315727d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 11px 8px;
+}
+body.theme-Engineering-ledger select[multiple] { background-image: none; padding-right: 4px; }
+body.theme-Engineering-ledger input[type="text"]:focus, body.theme-Engineering-ledger input[type="password"]:focus,
+body.theme-Engineering-ledger textarea:focus, body.theme-Engineering-ledger select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+  outline: none;
+}
+body.theme-Engineering-ledger label { color: var(--text-2); font-weight: 500; }
+
+/* the rich-text editor textarea defaults to Consolas/Liberation Mono — align it
+   with the theme's IBM Plex Mono so code/markup matches the rest of the UI */
+body.theme-Engineering-ledger textarea.wiki-edit,
+body.theme-Engineering-ledger .jstEditor textarea {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  font-feature-settings: "tnum" 1;
+}
+
+/* buttons */
+body.theme-Engineering-ledger input[type="submit"], body.theme-Engineering-ledger button,
+body.theme-Engineering-ledger a.button, body.theme-Engineering-ledger .buttons input[type="submit"] {
+  background-color: #fff;
+  border: 1px solid var(--line-2);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: var(--sans); font-weight: 500; font-size: 12.5px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background .14s ease, border-color .14s ease, transform .04s ease;
+}
+body.theme-Engineering-ledger input[type="submit"]:hover, body.theme-Engineering-ledger a.button:hover, body.theme-Engineering-ledger button:hover {
+  background-color: #faf8f3; border-color: var(--faint); text-decoration: none;
+}
+body.theme-Engineering-ledger input[type="submit"]:active { transform: translateY(1px); }
+/* primary submit */
+body.theme-Engineering-ledger input[name="commit"], body.theme-Engineering-ledger input.button-positive,
+body.theme-Engineering-ledger p.buttons input[type="submit"]:first-of-type {
+  background-color: var(--accent);
+  border-color: var(--accent-d);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+body.theme-Engineering-ledger input[name="commit"]:hover { background-color: var(--accent-d); }
+
+/* jstoolbar (rich-text editor toolbar) buttons use background-image sprite icons —
+   our generic button chrome (white bg + border + padding) painted over the icons,
+   leaving empty boxes (only the text-based "pre" button survived). Reset them so
+   Redmine's native toolbar styling shows through. */
+body.theme-Engineering-ledger .jstElements button,
+body.theme-Engineering-ledger .jstTabs button,
+body.theme-Engineering-ledger .tab-elements button,
+body.theme-Engineering-ledger .jstBlock button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  /* keep Redmine's own width/height + background-image sprite icon */
+  transition: background-color .12s ease, border-color .12s ease;
+}
+body.theme-Engineering-ledger .jstElements button:hover,
+body.theme-Engineering-ledger .jstTabs button:hover,
+body.theme-Engineering-ledger .tab-elements button:hover {
+  background-color: var(--accent-tint);
+  border-color: #cfe2e2;
+}
+/* Edit / Preview tabs on the editor */
+body.theme-Engineering-ledger .jstTabs .tab-edit,
+body.theme-Engineering-ledger .jstTabs .tab-preview {
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  background: #faf8f3;
+  color: var(--text-2);
+  padding: 5px 12px;
+}
+body.theme-Engineering-ledger .jstTabs .tab-edit.selected,
+body.theme-Engineering-ledger .jstTabs .tab-preview.selected {
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- query Options panel (Columns / group / totals) ---------- */
+body.theme-Engineering-ledger fieldset#options,
+body.theme-Engineering-ledger fieldset.collapsible {
+  background: #fbfaf6;
+}
+body.theme-Engineering-ledger #options h4 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); font-weight: 600;
+  border-bottom: 1px solid var(--line); padding-bottom: 6px; margin: 0 0 12px;
+}
+/* the dual column-selection lists (rendered as <select multiple>) */
+body.theme-Engineering-ledger .query-columns select,
+body.theme-Engineering-ledger #content select[multiple] {
+  height: auto !important; min-height: 168px;
+  border: 1px solid var(--line-2); border-radius: 4px;
+  background: var(--card); padding: 4px;
+}
+body.theme-Engineering-ledger .query-columns { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+body.theme-Engineering-ledger .query-columns .query-columns-available,
+body.theme-Engineering-ledger .query-columns .query-columns-selected { display: flex; flex-direction: column; gap: 4px; }
+body.theme-Engineering-ledger .columns .buttons,
+body.theme-Engineering-ledger #options .buttons { vertical-align: middle; }
+/* the small ◀ ▶ ▲ ▼ shuttle buttons should be compact icon squares, not wide chrome */
+body.theme-Engineering-ledger .columns button,
+body.theme-Engineering-ledger #options .buttons button {
+  width: 28px; height: 28px; padding: 0;
+  background: var(--card); border: 1px solid var(--line-2); border-radius: 4px;
+  box-shadow: none; color: var(--text-2); font-size: 12px;
+}
+body.theme-Engineering-ledger .columns button:hover,
+body.theme-Engineering-ledger #options .buttons button:hover {
+  background: var(--accent-tint); border-color: #cfe2e2;
+}
+body.theme-Engineering-ledger #options p { margin: 8px 0; }
+body.theme-Engineering-ledger #options label { color: var(--text-2); }
+
+/* ---------- flash messages ---------- */
+/* Redmine 6 renders a leading <svg class="s18 icon-svg"> inside the flash; make
+   the flash a flex row so the icon sits neatly inside, vertically centred, not
+   spilling over the rounded corner. */
+body.theme-Engineering-ledger div.flash {
+  border-radius: var(--radius); border: 1px solid; text-shadow: none;
+  padding: 11px 16px; font-weight: 500;
+  display: flex; align-items: center; gap: 9px;
+}
+body.theme-Engineering-ledger div.flash > svg.icon-svg {
+  flex: 0 0 auto; width: 16px; height: 16px; margin: 0;
+}
+body.theme-Engineering-ledger div.flash.notice > svg.icon-svg { color: var(--ok); }
+body.theme-Engineering-ledger div.flash.error  > svg.icon-svg { color: var(--danger); }
+body.theme-Engineering-ledger div.flash.warning > svg.icon-svg { color: var(--warm-d); }
+body.theme-Engineering-ledger div.flash.notice { background: var(--ok-tint); border-color: #bcd9bd; color: #2c5e33; }
+body.theme-Engineering-ledger div.flash.error  { background: var(--danger-tint); border-color: #e6b7b0; color: #8f2c22; }
+body.theme-Engineering-ledger div.flash.warning { background: var(--warm-tint); border-color: #ecc9b2; color: var(--warm-d); }
+
+/* ---------- login ---------- */
+body.theme-Engineering-ledger.controller-account.action-login #content,
+body.theme-Engineering-ledger.action-login #content {
+  background: transparent !important;
+  border: 0 !important; box-shadow: none !important;
+  max-width: 380px; margin: 48px auto 0 !important;
+  animation: io7-rise .3s ease both;
+}
+body.theme-Engineering-ledger #login-form table,
+body.theme-Engineering-ledger #login-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--warm);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  padding: 30px 30px 26px !important;
+}
+body.theme-Engineering-ledger #login-form input#username,
+body.theme-Engineering-ledger #login-form input#password {
+  width: 100%; box-sizing: border-box;
+  font-size: 15px; padding: 9px 11px;
+  border: 1px solid var(--line-2); border-radius: 5px;
+}
+body.theme-Engineering-ledger #login-form input#username:focus,
+body.theme-Engineering-ledger #login-form input#password:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+body.theme-Engineering-ledger #login-form input[type="submit"] {
+  background: var(--accent); border-color: var(--accent-d); color: #fff;
+  width: 100%; padding: 10px; font-size: 14px; font-weight: 600; margin-top: 4px;
+}
+body.theme-Engineering-ledger #login-form input[type="submit"]:hover { background: var(--accent-d); }
+
+/* ---------- footer ---------- */
+body.theme-Engineering-ledger #footer {
+  background: transparent; border: 0;
+  color: var(--faint);
+  font-family: var(--mono); font-size: 11px;
+  margin: 22px 16px; padding-top: 14px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+body.theme-Engineering-ledger #footer a { color: var(--muted); }
+
+/* ---------- misc polish ---------- */
+body.theme-Engineering-ledger .tabs ul { border-bottom: 1px solid var(--line); }
+body.theme-Engineering-ledger .tabs a.selected { border: 1px solid var(--line); border-bottom-color: #fff; border-radius: 5px 5px 0 0; color: var(--ink); }
+body.theme-Engineering-ledger .pagination .current { background: var(--accent); color: #fff; border-radius: 3px; padding: 1px 7px; }
+body.theme-Engineering-ledger .pagination a { border-radius: 3px; }
+body.theme-Engineering-ledger hr { border: 0; border-top: 1px solid var(--line); }
+body.theme-Engineering-ledger a.icon::before { opacity: .8; }
+body.theme-Engineering-ledger ::selection { background: rgba(21,114,125,.18); }
+
+/* ============================================================
+   Alignment & contrast pass — 2026-06-01
+   Fixes: form-label/control midline, submit-row alignment,
+   top-bar spacing, login button centring, selected-row contrast.
+   ============================================================ */
+
+/* (1) tabular form rows — the themed inputs/selects are ~32px tall
+   (border-box), but the base label keeps line-height:24px, so the
+   label text floated high above the field's midline. Match the
+   label's line box to the control height so they share a midline. */
+body.theme-Engineering-ledger .tabular label { line-height: 32px; }
+/* …but not the secondary label variants (checkbox/inline/wrapping),
+   which are not single-row right-column labels. */
+body.theme-Engineering-ledger .tabular label.block,
+body.theme-Engineering-ledger .tabular label.inline,
+body.theme-Engineering-ledger .tabular label.floating,
+body.theme-Engineering-ledger .check_box_group label { line-height: 1.5; }
+
+/* (2) submit row — a bare <input type=submit> aligns on the text
+   baseline, so an adjacent "Cancel" link floated above the button.
+   Put every control in the row on a shared middle and give the
+   cancel link some air. */
+body.theme-Engineering-ledger input[type="submit"],
+body.theme-Engineering-ledger button,
+body.theme-Engineering-ledger a.button { vertical-align: middle; }
+body.theme-Engineering-ledger p.buttons a { vertical-align: middle; margin-left: 8px; color: var(--muted); }
+body.theme-Engineering-ledger p.buttons a:hover { color: var(--accent-d); }
+
+/* (3) top account bar — links sat 8px apart and read as one cramped
+   run; open them up. */
+body.theme-Engineering-ledger #top-menu a { margin-right: 18px; }
+body.theme-Engineering-ledger #top-menu #loggedas { margin-left: 6px; }
+
+/* (4) login button — normalise the line box so the label sits dead
+   centre in the full-width button. */
+body.theme-Engineering-ledger #login-form input[type="submit"] { line-height: 1.15; text-align: center; }
+
+/* (5) selected (context-menu) rows — base context_menu.css paints the
+   row #507AAA with white text, but the theme's row:hover repainted the
+   *cells* (which don't carry the selection class) light → white-on-light
+   on hover. Lock the selection to the petrol accent, white text, hover
+   included, and align it to the theme palette. */
+body.theme-Engineering-ledger table.list tr.context-menu-selection,
+body.theme-Engineering-ledger table.list tr.context-menu-selection td,
+body.theme-Engineering-ledger table.list tr.context-menu-selection:hover,
+body.theme-Engineering-ledger table.list tr.context-menu-selection:hover td {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+body.theme-Engineering-ledger table.list tr.context-menu-selection a,
+body.theme-Engineering-ledger table.list tr.context-menu-selection a:hover,
+body.theme-Engineering-ledger table.list tr.context-menu-selection td a { color: #fff !important; }
+body.theme-Engineering-ledger table.list tr.context-menu-selection svg.icon-svg { stroke: #fff !important; }
