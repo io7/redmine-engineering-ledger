@@ -368,6 +368,8 @@ body.theme-Engineering-ledger div.journal .details, body.theme-Engineering-ledge
   color: var(--muted); font-size: 12px;
 }
 body.theme-Engineering-ledger .journal h4 { border-bottom: 1px solid var(--line); padding-bottom: 6px; color: var(--muted); font-weight: 500; }
+body.theme-Engineering-ledger div.journal .journal-info a.user + a,
+body.theme-Engineering-ledger div.journal .journal-info a.user + abbr { margin-left: .25em; }
 
 /* progress bars */
 body.theme-Engineering-ledger table.progress { border: 1px solid var(--line-2); border-radius: 3px; height: 1em; }
@@ -615,6 +617,10 @@ body.theme-Engineering-ledger button,
 body.theme-Engineering-ledger a.button { vertical-align: middle; }
 body.theme-Engineering-ledger p.buttons a { vertical-align: middle; margin-left: 8px; color: var(--muted); }
 body.theme-Engineering-ledger p.buttons a:hover { color: var(--accent-d); }
+body.theme-Engineering-ledger #issue-form > input[type="submit"],
+body.theme-Engineering-ledger #issue-form > input[type="submit"] + a { vertical-align: middle; }
+body.theme-Engineering-ledger #issue-form > input[type="submit"] + a { margin-left: 12px; color: var(--muted); }
+body.theme-Engineering-ledger #issue-form > input[type="submit"] + a:hover { color: var(--accent-d); }
 
 /* (3) top account bar — links sat 8px apart and read as one cramped
    run; open them up. */
