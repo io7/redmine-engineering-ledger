@@ -228,7 +228,10 @@ body.theme-Engineering-ledger #main.nosidebar #content {
   margin: 16px 16px 0;
   animation: io7-rise .26s cubic-bezier(.2,.7,.3,1) both;
 }
-@keyframes io7-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* Keep this opacity-only: Redmine appends #context-menu inside #content and
+   positions it with page coordinates. A transform here shifts that coordinate
+   space, so right-click menus appear away from the pointer. */
+@keyframes io7-rise { from { opacity: 0; } to { opacity: 1; } }
 
 body.theme-Engineering-ledger #sidebar {
   background: transparent !important;
