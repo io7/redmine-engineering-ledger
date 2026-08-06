@@ -294,6 +294,12 @@ body.theme-Engineering-ledger p.breadcrumb {
 }
 body.theme-Engineering-ledger .contextual a, body.theme-Engineering-ledger .contextual a:link { color: var(--muted); }
 body.theme-Engineering-ledger .contextual a:hover { color: var(--accent-d); }
+/* Page actions are floated before the positioned h2 in Redmine's markup.
+   Raise the toolbar so the transparent heading cannot intercept its clicks. */
+body.theme-Engineering-ledger #content > .contextual {
+  position: relative;
+  z-index: 1;
+}
 
 /* ---------- tables (the workhorse) ---------- */
 body.theme-Engineering-ledger table.list { border: 1px solid var(--line); border-radius: var(--radius); border-collapse: separate; border-spacing: 0; overflow: hidden; }
